@@ -60,12 +60,24 @@ if nombre_buscado:
 
                 # --- Columna 1: Datos de Texto (GBIF) ---
                 with col1:
-                    st.subheader("Taxonomía")
-                    st.markdown(f"**Nombre:** *{aux.nombre()}*")
-                    st.markdown(f"**Reino:** {aux.reino()}")
-                    st.markdown(f"**Clase:** {aux.orden()}")
-                    st.markdown(f"**Orden:** {aux.familia()}")
-                    st.markdown(f"**Clave Taxonómica:** `{aux.Idtaxon()}`")
+                    st.subheader("Información General")
+
+                    # Extraemos la URL de la foto usando tu método .imagen()
+                    url_foto = aux2.imagen()
+
+                    # Si tu método encuentra una foto válida, la dibuja
+                    if url_foto and url_foto != "Sin imagen":
+                        st.image(url_foto, caption=f"Fotografía de {aux.nombre()}", use_container_width=True)
+                    else:
+                        st.info("Especie sin fotografía en Wikimedia.")
+
+                    # Agregamos una línea divisoria y pintamos el extracto con tu método .nombre()
+                    st.markdown("---")
+                    st.write(aux2.nombre())
+
+
+
+
 
                 # --- Columna 2: Mapa de Distribución (GBIF Maps) ---
                 with col2:
@@ -81,20 +93,15 @@ if nombre_buscado:
 
                 # --- Columna 3: Información e Imagen (Wikipedia) ---
                 with col3:
-                    st.subheader("Información General")
+                    st.subheader("Taxonomía")
+                    st.markdown(f"**Nombre:** *{aux.nombre()}*")
+                    st.markdown(f"**Reino:** {aux.reino()}")
+                    st.markdown(f"**Clase:** {aux.orden()}")
+                    st.markdown(f"**Orden:** {aux.familia()}")
+                    st.markdown(f"**Clave Taxonómica:** `{aux.Idtaxon()}`")
 
-                    # Extraemos la URL de la foto usando tu método .imagen()
-                    url_foto = aux2.imagen()
 
-                    # Si tu método encuentra una foto válida, la dibuja
-                    if url_foto and url_foto != "Sin imagen":
-                        st.image(url_foto, caption=f"Fotografía de {aux.nombre()}", use_container_width=True)
-                    else:
-                        st.info("Especie sin fotografía en Wikimedia.")
 
-                    # Agregamos una línea divisoria y pintamos el extracto con tu método .nombre()
-                    st.markdown("---")
-                    st.write(aux2.nombre())
 
             else:
                 st.warning(f"No se encontraron registros exactos para '{nombre_buscado}'. Revisa la ortografía.")
